@@ -1,6 +1,3 @@
-const path = require('path');
-const fs = require('fs');
-const config = require('../config/env');
 const Categories = require('../config/model/category');
 
 const index = async (req, res, next) => {
@@ -20,7 +17,7 @@ const store = async (req, res, next) => {
     try {
         let payload = req.body;
         let category = new Categories(payload);
-        await product.save();
+        await category.save();
         return res.json(category);
     } catch (err) {
         if(err && err.name === 'ValidationError') {
@@ -39,7 +36,7 @@ const update = async (req, res, next) => {
     try {
         let payload = req.body;
         let { id } = req.params;
-        let category = await Categories.findByIDAndUpdate(id, payload, {new: true, runValidators: true});
+        let category = await Categories.findByIdAndUpdate(id, payload, {new: true, runValidators: true});
         return res.json(category);
     } catch (err) {
         if(err && err.name === 'ValidationError') {
@@ -56,12 +53,8 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
     try {
-        let product = await Product.findByIdAndDelete(req.params.id);
-        let currentImage = `${config.rootPath}/public/images/products/${product.image_url}`;
-        if(fs.existsSync(currentImage)) {
-            fs.unlinkSync(currentImage);
-        }
-        return res.json(`Product ${product.name} deleted`);
+        let category = await Categories.findByIdAndDelete(req.params.id);
+        return res.json(`Category ${category.name} deleted`);
     } catch (err) {
         next(err);
     }

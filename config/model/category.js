@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { model, Schema } = mongoose.Schema;
+const { model, Schema } = mongoose
 
 let categorySchema = new Schema({
     name: {
