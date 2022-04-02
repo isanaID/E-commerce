@@ -10,6 +10,7 @@ const productRouter = require('./routes/product');
 const categoryRouter = require('./routes/category');
 const tagRouter = require('./routes/tag');
 const authRouter = require('./routes/auth');
+const deliveryAddressRouter = require('./routes/deliveryAddress');
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', productRouter);
 app.use('/api', categoryRouter);
 app.use('/api', tagRouter);
+app.use('/api', deliveryAddressRouter);
 app.use('/auth', authRouter);
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
