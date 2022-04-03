@@ -1,5 +1,6 @@
 const DeliveryAddress = require('../config/model/deliveryAddress');
 const { subject } = require('@casl/ability');
+const { policyFor } = require('../utils/index');
 
 const index = async (req, res, next) => {
     try {
@@ -38,7 +39,17 @@ const update = async (req, res, next) => {
     try {
         let payload = req.body;
         let { id } = req.params;
-        let address = await DeliveryAddress.findByIdAndUpdate(id, payload, {new: true, runValidators: true});
+        let address = await DeliveryAddress.findById(id);
+        let subjectAddress = subject('DeliveryAddress', {...address, user_id: address.user});
+        let policy = policyFor(req.user);
+        if(!policy.can('update', subjectAddress)) {
+            return res.json({
+                error: 1,
+                message: 'You are not authorized to modify this address'
+            });
+        }
+
+        address = await DeliveryAddress.findByIdAndUpdate(id, payload, {new: true, runValidators: true});
         return res.json(address);
     } catch (err) {
         if(err && err.name === 'ValidationError') {
