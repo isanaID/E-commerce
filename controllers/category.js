@@ -1,4 +1,4 @@
-const Categories = require('../config/model/category');
+const Categories = require('../models/category');
 
 const index = async (req, res, next) => {
     try {

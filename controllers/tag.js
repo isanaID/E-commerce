@@ -1,4 +1,4 @@
-const Tags = require('../config/model/tag');
+const Tags = require('../models/tag');
 
 const index = async (req, res, next) => {
     try {

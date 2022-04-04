@@ -11,6 +11,7 @@ const categoryRouter = require('./routes/category');
 const tagRouter = require('./routes/tag');
 const authRouter = require('./routes/auth');
 const deliveryAddressRouter = require('./routes/deliveryAddress');
+const cartRouter = require('./routes/cart');
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 
@@ -33,6 +34,7 @@ app.use('/api', categoryRouter);
 app.use('/api', tagRouter);
 app.use('/api', deliveryAddressRouter);
 app.use('/auth', authRouter);
+app.use('/api', cartRouter);
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 

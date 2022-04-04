@@ -1,16 +1,22 @@
-const DeliveryAddress = require('../config/model/deliveryAddress');
+const DeliveryAddress = require('../models/deliveryAddress');
 const { subject } = require('@casl/ability');
 const { policyFor } = require('../utils/index');
 
 const index = async (req, res, next) => {
     try {
         let { skip = 0, limit = 10 } = req.query;
-        let deliveryAddress = await DeliveryAddress
-        .find()
+        let count = await DeliveryAddress.find({user: req.user._id}).countDocuments();
+        let address = await DeliveryAddress
+        .find({user: req.user._id})
         .skip(parseInt(skip))
-        .limit(parseInt(limit));
-        return res.json(deliveryAddress);
+        .limit(parseInt(limit))
+        .sort('-createdAt');
+
+        return res.json({data: address, count});
     } catch (err) {
+        if(err && err.name === 'ValidationError') {
+            return res.json({error: 1, message: err.message, field: err.errors});
+        }
         next(err);
     }
 };
@@ -37,7 +43,7 @@ const store = async (req, res, next) => {
 
 const update = async (req, res, next) => {
     try {
-        let payload = req.body;
+        let {_id, ...payload } = req.body;
         let { id } = req.params;
         let address = await DeliveryAddress.findById(id);
         let subjectAddress = subject('DeliveryAddress', {...address, user_id: address.user});
@@ -64,9 +70,28 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
     try {
-        let address = await DeliveryAddress.findByIdAndDelete(req.params.id);
+        let {id} = req.params;
+        let address = await DeliveryAddress.findById(id);
+        let subjectAddress = subject('DeliveryAddress', {...address, user_id: address.user});
+        let policy = policyFor(req.user);
+        if(!policy.can('delete', subjectAddress)) {
+            return res.json({
+                error: 1,
+                message: 'You are not authorized to delete this address'
+            });
+        }
+        
+        address = await DeliveryAddress.findByIdAndDelete(id);
         return res.json(`Address ${address.name} deleted`);
     } catch (err) {
+        if(err && err.name === 'ValidationError') {
+            return res.json({
+                error: 1,
+                message: err.message,
+                fields: err.errors
+            });
+        }
+
         next(err);
     }
 };
