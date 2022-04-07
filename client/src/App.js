@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import store from './app/store';
 import Home from './pages/Home';
+import Register from './pages/Register';
 
 import { listen } from './app/listener';
 
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
       </Provider>
