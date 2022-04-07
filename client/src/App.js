@@ -1,15 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter , Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import store from './app/store';
+import Home from './pages/Home';
+
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename="/">
-        <Switch>
-          {/* <Route exact path="/" component={Home} /> */}
-        </Switch>
-      </BrowserRouter>
+      <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
+      </Provider>
     </div>
   );
 }
