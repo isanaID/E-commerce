@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './app/store';
@@ -16,7 +16,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div>
       <Provider store={store}>
       <Router>
         <Routes>

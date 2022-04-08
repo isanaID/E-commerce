@@ -5,6 +5,7 @@ import menus from './menus';
 
 export default function Home() {
         return (
+            <div>
             <Navbar className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark opacity-75" bg="dark" variant="dark">
             <Container>
             <Navbar.Brand href="/">POS</Navbar.Brand>
@@ -16,7 +17,7 @@ export default function Home() {
                 <NavDropdown title="Menu" id="basic-nav-dropdown">
                     {menus.map(menu => {
                         return(
-                            <NavDropdown.Item href={`/${menu.id}`}>{menu.label}</NavDropdown.Item>
+                            <NavDropdown.Item key={`${menu.id}`} href={`/${menu.id}`}>{menu.label}</NavDropdown.Item>
                         )
                     })}
                 </NavDropdown>
@@ -24,5 +25,6 @@ export default function Home() {
             </div>
             </Container>
           </Navbar>
+          </div>
         )
     }
