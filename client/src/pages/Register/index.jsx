@@ -2,6 +2,7 @@ import * as React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as Validator from 'validatorjs';
 import { registerUser } from '../../api/auth';
+import { useNavigate } from 'react-router-dom';
 import Input from "./input";
 import ShowErrors from "./showErrors";
 
@@ -44,10 +45,10 @@ export default class Register extends React.Component {
             if(validation.passes()){
                 registerUser(this.state)
                 .then(response => {
-                    console.log(response.data.data);
                     if(response.status === 200){
+                        const navigate = useNavigate();
                         alert('Berhasil mendaftar, silakan login');
-                        this.props.history.push('/login');
+                        navigate('/login');
                     }else{
                         console.log(response.data.message);
                         alert('Gagal mendaftar, silakan coba lagi');
