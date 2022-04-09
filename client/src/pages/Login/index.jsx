@@ -32,9 +32,9 @@ export default function Login(){
 
         let rules = {
             email: 'required|email',
-            password: 'required|min:8'
+            password: 'required|min:5'
         };
-
+        
         let validation = new Validator(data, rules);
         validation.setAttributeNames({email: 'Email', password: 'Password'});
         validation.passes();
@@ -44,21 +44,20 @@ export default function Login(){
         ]);
 
         if(validation.passes()){
-            dispatch(userLogin(email, password));
-            login(email, password)
-            .then(response => {
-                if(response.status === 200){
-                    navigate('/');
-                }else{
-                    console.log(response.data.message);
-                    alert('Gagal login, silakan coba lagi');
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                alert('Gagal login, silakan coba lagi');
-            })
-        }
+        let userSign = login(email, password);
+        userSign.then(response => {
+            let signData = response.data;
+            console.log(userSign);
+            console.log(signData);
+            let {user, token} = signData;
+            dispatch(userLogin(user, token));
+            console.log(user, token);
+            navigate('/');
+        })
+        .catch(error => {
+            setErrors(['Email atau Password salah']);
+        })
+    }
     }
 
         return(

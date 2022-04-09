@@ -5,6 +5,7 @@ import { registerUser } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 import Input from "./input";
 import ShowErrors from "./showErrors";
+import StoreLogo from '../../components/StoreLogo';
 
 export default class Register extends React.Component {
     state = {
@@ -65,6 +66,9 @@ export default class Register extends React.Component {
     render() {
         return(
             <div className="body"><div className='bold-line'></div>
+            <div className="text-center mb-5">
+            <StoreLogo/>
+            </div>  
                 <div className="containerregis">   
                 <div className='window'>
                 <div className='overlay'></div>
