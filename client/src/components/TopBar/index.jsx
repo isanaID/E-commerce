@@ -1,6 +1,5 @@
 import * as React from 'react'; 
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import menus from './menus';

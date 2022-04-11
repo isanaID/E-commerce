@@ -13,7 +13,7 @@ export default function Home() {
 
     React.useEffect(() => {
         dispatch(fetchProducts());
-      }, [dispatch])
+      }, [dispatch, products.currentPage]);
 
         return (
         <div>
