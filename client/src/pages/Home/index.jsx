@@ -5,6 +5,7 @@ import { config } from "../../config";
 import GetProducts from '../../components/Products';
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
+import RotateLoader from 'react-spinners/BarLoader';
 import { fetchProducts, setPage, goToNextPage, goToPrevPage } from '../../features/Products/actions';
 
 export default function Home() {
@@ -21,7 +22,12 @@ export default function Home() {
                 <TopBar />
             </div>
             <Container>
-                <h1>Home</h1>
+                <h2> Selamat datang di Store</h2>
+                {products.status === 'process' && !products.data.length ? 
+                <div className="my-auto mx-auto d-flex align-content-center justify-content-center">
+                    <RotateLoader color="blue"/> 
+                </div>
+                : null}
                 <div className="row  d-flex justify-content-evenly">
                     {products.data.map((product, index) => {
                         return (
