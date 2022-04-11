@@ -5,7 +5,7 @@ import { registerUser } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 import Input from "./input";
 import ShowErrors from "./showErrors";
-import StoreLogo from '../../components/StoreLogo';
+import TopBar from "../../components/TopBar";
 
 export default class Register extends React.Component {
     state = {
@@ -66,25 +66,26 @@ export default class Register extends React.Component {
     render() {
         return(
             <div className="body"><div className='bold-line'></div>
-            <div className="text-center mb-5">
-            <StoreLogo/>
+            <div>
+            <TopBar/>
             </div>  
-                <div className="containerregis">   
-                <div className='window'>
-                <div className='overlay'></div>
-                    <div className='content'>
+            <div className="container mt-5">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card px-5 py-5" id="form1">
                     <div className='welcome'>Registration</div>
                     <div className='subtitle'>Untuk mendapatkan akun, silakan mendaftar.</div>
                 <div className='input-fields'></div>
                 <ShowErrors errors={this.state.errors}/>
             <form onSubmit={this.handleSubmit}>
-                <Input type="text" name="full_name" label="Nama" placeholder="Nama" className='input-line full-width' onChange={value => this.setState({full_name: value})}/>
-                <Input type="text" name="email" label="email" placeholder="Email" className='input-line full-width' onChange={value => this.setState({email: value})}/>
-                <Input type="password" name="password" label="Password" placeholder="Password" className='input-line full-width' onChange={value => this.setState({password: value})}/>
-                <Input type="password" name="repassword" label="Masukan ulang Password" placeholder="Masukan ulang Password" className='input-line full-width' onChange={value => this.setState({repassword: value})}/>
+                <Input type="text" name="full_name" label="Nama" placeholder="Nama" className='form-control input-line mx-auto mb-4' onChange={value => this.setState({full_name: value})}/>
+                <Input type="text" name="email" label="email" placeholder="Email" className='form-control input-line mx-auto mb-4' onChange={value => this.setState({email: value})}/>
+                <Input type="password" name="password" label="Password" placeholder="Password" className='form-control input-line mx-auto mb-4' onChange={value => this.setState({password: value})}/>
+                <Input type="password" name="repassword" label="Masukan ulang Password" placeholder="Masukan ulang Password" className='form-control input-line mx-auto mb-4' onChange={value => this.setState({repassword: value})}/>
             <br />
-            <div><button type="submit" className='ghost-round full-width'>Sign Up</button></div>
+            <div><button type="submit" className='btn btn-primary'>Sign Up</button></div>
             </form>
+            </div>
             </div>
             </div>
             </div>

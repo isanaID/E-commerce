@@ -1,10 +1,12 @@
 import * as React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import { Form } from 'react-bootstrap';
 import * as Validator from 'validatorjs';
 import { userLogin } from '../../features/Auth/actions';
 import { useDispatch } from 'react-redux';
 import { login } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
+import TopBar from '../../components/TopBar';
 // import StoreLogo from '../../components/StoreLogo';
 import Input from './input';
 import ShowErrors from './showErrors';
@@ -61,14 +63,30 @@ export default function Login(){
     }
 
         return(
-            <div className="container">
-                <ShowErrors errors={errors}/>
-                <form onSubmit={handleSubmit}>
-                <Input type="text" name="email" label="email" placeholder="Email" className='input-line full-width' onChange={handleEmailChange}/>
-                <Input type="password" name="password" label="Password" placeholder="Password" className='input-line full-width' onChange={handlePasswordChange}/>
-                <br />
-                <div><button type="submit" className='ghost-round full-width'>Login</button></div>
-                </form>
+            <div>
+                <div>
+                <TopBar />
+                </div>
+                <div className="container mt-5">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card px-5 py-5">
+                            <ShowErrors errors={errors}/>
+                            <form onSubmit={handleSubmit}>
+                            <div class="form-outline">
+                            <Input type="text" name="email" label="email" placeholder="Email" className='form-control input-line mx-auto mb-4' onChange={handleEmailChange}/>
+                            </div>
+                            <div class="form-outline">
+                            <Input type="password" name="password" label="Password" placeholder="Password" className='form-control input-line mx-auto mb-4' onChange={handlePasswordChange}/>
+                            </div>
+                            <br />
+                            <div>
+                                <button type="submit" className='btn btn-primary'>Login</button></div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
 }
