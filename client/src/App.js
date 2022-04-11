@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { getCart } from './api/cart';
 
 import store from './app/store';
 import Home from './pages/Home';
@@ -14,6 +15,7 @@ function App() {
 
   React.useEffect(() => {
     listen();
+    getCart();
   }, []);
 
   return (
