@@ -1,4 +1,5 @@
 import * as React from "react";
+import 'upkit/dist/style.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TopBar from '../../components/TopBar';
 import { config } from "../../config";
@@ -7,6 +8,7 @@ import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import RotateLoader from 'react-spinners/BarLoader';
 import { fetchProducts, setPage, goToNextPage, goToPrevPage } from '../../features/Products/actions';
+import { Pagination } from 'upkit';
 
 export default function Home() {
     let dispatch = useDispatch();
@@ -40,6 +42,17 @@ export default function Home() {
                                 />
                             </div>
                         )})}
+                </div>
+                <div className="text-center my-10">
+                <Pagination 
+                    totalItems={products.totalItems} 
+                    page={products.currentPage}
+                    perPage={products.perPage}
+                    onChange={page => dispatch(setPage(page))}
+                    onNext={_ => dispatch(goToNextPage())}
+                    onPrev={_ => dispatch(goToPrevPage())}
+                    color="blue"
+                />
                 </div>
             </Container>
         </div>

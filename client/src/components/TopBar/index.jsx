@@ -33,7 +33,7 @@ export default function TopBar() {
                      <div className="mr-5 text-right">
 
                     <Nav.Link href={auth.user ? '/account' : '/login'}>
-                    <div className="mr-2 inline-block text-red-600 font-bold">
+                    <div className="mr-2 inline-block text-blue-600 font-bold">
                         {auth?.user?.full_name}
                     </div>
                     </Nav.Link>
