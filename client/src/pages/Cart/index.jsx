@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../../features/Products/actions';
 import { addItem, removeItem } from '../../features/Cart/actions';
 import { useNavigate } from 'react-router-dom';
-import { config } from '../../config';
 
 export default function Cart({items}){
     let dispatch = useDispatch();

@@ -3,17 +3,29 @@ import 'upkit/dist/style.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TopBar from '../../components/TopBar';
 import { config } from "../../config";
+import { 
+    SideNav, 
+    LayoutSidebar,
+    Responsive, 
+    CardProduct,
+    Pagination,
+    InputText,
+    Pill 
+  } from 'upkit';
 import GetProducts from '../../components/Products';
+import Cart from '../../components/Cart';
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import RotateLoader from 'react-spinners/BarLoader';
-import { addItem } from '../../features/Cart/actions';
-import { fetchProducts, setPage, goToNextPage, goToPrevPage } from '../../features/Products/actions';
-import { Pagination } from 'upkit';
+import { addItem, removeItem } from '../../features/Cart/actions';
+import { useNavigate } from 'react-router-dom';
+import { fetchProducts, setPage, goToNextPage, goToPrevPage, setKeyword, setTags, toggleTag } from '../../features/Products/actions';
 
 export default function Home() {
     let dispatch = useDispatch();
     let products = useSelector(state => state.products);
+    let cart  = useSelector(state => state.cart);
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         dispatch(fetchProducts());
@@ -24,32 +36,43 @@ export default function Home() {
             <div>
                 <TopBar />
             </div>
+            {<div className="md:flex md:flex-row-reverse w-full mr-5 h-full min-h-screen">
+            <div className="w-full md:w-3/4 pl-5 pb-10">
             <Container>
-                <div className="row">
+                
                 <h2> Selamat datang di Store</h2>
+                {/* <div className="mb-5 pl-2 flex w-3/3 overflow-auto pb-5">
+                    {tags[products.category].map((tag, index) => {
+                        return <div key={index}>
+                        <Pill
+                            text={tag}
+                            icon={tag.slice(0,1).toUpperCase()}
+                            isActive={products.tags.includes(tag)}
+                            onClick={_ => dispatch(toggleTag(tag))}
+                        />
+                        </div>
+                    })}
+                </div> */}
 
                 {products.status === 'process' && !products.data.length ? 
-                <div className="row h-100">
-                <div className="col-sm-12 my-auto">
-                <div className="my-auto mx-auto d-flex align-content-center justify-content-center">
+                <div className="flex justify-center">
                     <RotateLoader color="blue"/> 
                 </div>
-                </div>
-                </div>
                 : null}
-                <div className="row d-flex justify-content-evenly">
+
+                <Responsive desktop={3} items="stretch">
                     {products.data.map((product, index) => {
-                        return (
-                            <div className="col-md-3" key={index}>
-                                <GetProducts
-                                    name={product.name}
-                                    price={product.price}
-                                    img={`${config.api_host}/images/products/${product.image_url}`}
-                                    onAddToCart={_ => dispatch(addItem(product))}
-                                />
-                            </div>
-                        )})}
-                </div>
+                        return <div key={index} className="p-2">
+                        <CardProduct
+                        title={product.name}
+                        imgUrl={`${config.api_host}/images/products/${product.image_url}`}
+                        price={product.price}
+                        onAddToCart={_ => dispatch(addItem(product))}
+                        />
+                        </div>
+                    })}
+                </Responsive>
+
                 <div className="text-center my-10">
                 <Pagination 
                     totalItems={products.totalItems} 
@@ -61,8 +84,17 @@ export default function Home() {
                     color="blue"
                 />
                 </div>
+                </Container>
                 </div>
-            </Container>
+                <div className="w-full md:w-1/4 h-full shadow-lg border-r border-white bg-gray-100">
+                    <Cart 
+                    items={cart}
+                    onItemInc={item => dispatch(addItem(item))}
+                    onItemDec={item => dispatch(removeItem(item))}
+                    onCheckout={_ => navigate('/checkout')}
+                    />
+                </div>
+                </div>}
         </div>
         )
     }

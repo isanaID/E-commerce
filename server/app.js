@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const log = require('./middlewares/logger');
 var logger = require('morgan');
 const cors = require('cors');
 const { decodeToken } = require('./middlewares/index');
@@ -25,6 +26,7 @@ app.set('view engine', 'jade');
 
 app.use(decodeToken());
 app.use(cors());
+app.use(log);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
