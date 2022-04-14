@@ -68,15 +68,15 @@ export default function Login(){
                 <TopBar />
                 </div>
                 <div className="container mt-5">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-md-6">
-                            <div class="card px-5 py-5">
+                    <div className="row d-flex justify-content-center">
+                        <div className="col-md-6">
+                            <div className="card px-5 py-5">
                             <ShowErrors errors={errors}/>
                             <form onSubmit={handleSubmit}>
-                            <div class="form-outline">
+                            <div className="form-outline">
                             <Input type="text" name="email" label="email" placeholder="Email" className='form-control input-line mx-auto mb-4' onChange={handleEmailChange}/>
                             </div>
-                            <div class="form-outline">
+                            <div className="form-outline">
                             <Input type="password" name="password" label="Password" placeholder="Password" className='form-control input-line mx-auto mb-4' onChange={handlePasswordChange}/>
                             </div>
                             <br />

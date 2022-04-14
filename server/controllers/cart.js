@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const CartItem = require('../models/cartItem');
+const { policyFor } = require('../utils');
 
 const index = async (req, res, next) => {
     try {
@@ -19,20 +20,31 @@ const index = async (req, res, next) => {
     }};
 
 const update = async(req, res, next) => {
+    let policy = policyFor(req.user);
+    if(!policy.can('update', 'Cart')){
+
+        return res.json({
+          error: 1, 
+          message: `You're not allowed to perform this action`
+        });
+    
+      }
+      
     try {
-        const {item} = req.body;
-        const productIds = items.map(item => item.product._id);
-        const products = await Product.find({_id: {$in: productIds}});
+        const { items } = req.body;
+        const productIds = items.map(itm => itm._id);
+        const products = 
+          await Product.find({_id: {$in: productIds}});
         let cartItems = items.map(item => {
-            let relateProduct = products.find(product => product._id.toString() === item.product._id);
-            return {
-                product: relateProduct._id,
-                price: relateProduct.price,
-                image_url: relateProduct.image_url,
-                name: relateProduct.name,
-                user: req.user._id,
-                qty: item.qty
-            }
+          let relatedProduct = products.find(product => product._id.toString() === item._id);
+          return {
+            product: relatedProduct._id, 
+            price: relatedProduct.price, 
+            image_url: relatedProduct.image_url, 
+            name: relatedProduct.name, 
+            user: req.user._id, 
+            qty: item.qty
+          }
         });
 
         await CartItem.deleteMany({user: req.user._id});
@@ -48,7 +60,7 @@ const update = async(req, res, next) => {
                 }
             }
     }));
-
+        console.log(cartItems);
         return res.json(cartItems);
 
     } catch (err) {
