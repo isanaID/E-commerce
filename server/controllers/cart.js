@@ -1,6 +1,5 @@
 const Product = require('../models/product');
 const CartItem = require('../models/cartItem');
-const { policyFor } = require('../utils');
 
 const index = async (req, res, next) => {
     try {
@@ -20,16 +19,6 @@ const index = async (req, res, next) => {
     }};
 
 const update = async(req, res, next) => {
-    let policy = policyFor(req.user);
-    if(!policy.can('update', 'Cart')){
-
-        return res.json({
-          error: 1, 
-          message: `You're not allowed to perform this action`
-        });
-    
-      }
-      
     try {
         const { items } = req.body;
         const productIds = items.map(itm => itm._id);
