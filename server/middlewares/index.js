@@ -18,7 +18,6 @@ function decodeToken() {
         } catch (err) {
             if(err && err.name === 'JsonWebTokenError') {
                  return res.json({error: 1, message: err.message});
-                 console.log(err.message);
             }
             next(err);
         }
