@@ -10,6 +10,7 @@ import Login from './pages/Login';
 // import Cart from './pages/Cart';
 import UserAddressAdd from './pages/UserAddressAdd';
 import UserAddress from './pages/UserAddress';
+import Checkout from './pages/Checkout';
 
 import { listen } from './app/listener';
 
@@ -32,6 +33,7 @@ function App() {
           {/* <Route path="/cart" element={<Cart />} /> */}
           <Route path="/alamat-pengiriman" element={<UserAddress />} />
           <Route path="/alamat-pengiriman/tambah" element={<UserAddressAdd />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </Router>
       </Provider>
