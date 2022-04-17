@@ -40,7 +40,7 @@ export default function useAddressData() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        const data = {
+        let data = {
             name, address, kota, provinsi, kodepos
         };
 
@@ -64,14 +64,19 @@ export default function useAddressData() {
         ]);
 
         if(validation.passes()){
-            let addressData = createAddress(name, address, kota, provinsi, kodepos);
-            addressData.then(response => {
-                let addressData = response.data;
-                console.log(addressData);
-                navigate('/user/address');
+            createAddress(data)
+            .then(response => {
+                if(response.status === 200){
+                    alert('Berhasil menambahkan Alamat');
+                    navigate('/alamat-pengiriman');
+                }else{
+                    console.log(response.data.message);
+                    alert('Gagal menambahkan alamat, silakan coba lagi');
+                }
             })
             .catch(error => {
-                setErrors(['Gagal menambahkan alamat']);
+                console.log(error);
+                alert('Gagal menambahkan alamat, silakan coba lagi');
             })
         }
     }
