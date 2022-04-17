@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 // import Cart from './pages/Cart';
 import UserAddressAdd from './pages/UserAddressAdd';
+import UserAddress from './pages/UserAddress';
 
 import { listen } from './app/listener';
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           {/* <Route path="/cart" element={<Cart />} /> */}
+          <Route path="/alamat-pengiriman" element={<UserAddress />} />
           <Route path="/alamat-pengiriman/tambah" element={<UserAddressAdd />} />
         </Routes>
       </Router>
