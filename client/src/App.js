@@ -12,6 +12,7 @@ import UserAddressAdd from './pages/UserAddressAdd';
 import UserAddress from './pages/UserAddress';
 import Checkout from './pages/Checkout';
 import Invoice from './pages/Invoice';
+import UserAccount from './pages/UserAccount';
 import { listen } from './app/listener';
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/alamat-pengiriman/tambah" element={<UserAddressAdd />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/invoice/:order_id" element={<Invoice />} />
+          <Route path="/account" element={<UserAccount />} />
         </Routes>
       </Router>
       </Provider>

@@ -1,7 +1,7 @@
 import * as React from 'react'; 
 import { useParams } from 'react-router-dom';
 import {LayoutOne, Text, Table} from 'upkit';
-
+import BarLoader from 'react-spinners/BarLoader';
 import TopBar from '../../components/TopBar';
 import StatusLabel from '../../components/StatusLabel';
 import {config} from '../../config';
@@ -10,20 +10,16 @@ import {getInvoiceByOrderId} from '../../api/invoice';
 
 export default function Invoice(){
     let { order_id } = useParams();
-    console.log(order_id);
     let [invoice, setInvoice] = React.useState(null);
     let [error, setError] = React.useState('');
     let [status, setStatus] = React.useState('process');
 
     React.useState(() => {
-
       getInvoiceByOrderId(order_id)
         .then(({data}) => {
-          console.log(data);
           if(data?.error){
             setError(data.message || 'Terjadi kesalahan yang tidak diketahui');
           }
-
           setInvoice(data);
         })
         .finally(() => setStatus('idle'));
@@ -38,6 +34,16 @@ export default function Invoice(){
           {error}
         </LayoutOne>
       )
+    }
+
+    if(status === 'process') {
+      return <LayoutOne>
+        <div className="text-center py-10">
+          <div className="inline-block">
+            <BarLoader color="red"/>
+          </div>
+        </div>
+      </LayoutOne>
     }
 
     return (
