@@ -1,32 +1,31 @@
 const { subject } = require('@casl/ability');
 const Invoice = require('../models/invoice');
-const { PolicyFor } = require('../utils/index');
+const { policyFor } = require('../utils/index');
 
-const show = async (req, res, next) => {
-    try {
-        let policy = PolicyFor(req.user);
-        let subjectInvoice = subject('Invoice', {...invoice, user_id: Invoice.user._id});
-        if (!policy.can('read', subjectInvoice)) {
-            return res.json({
-                error: 1,
-                message: 'You are not allowed to view this invoice'
-            });
-        }
-
-        let {order_id} = req.params;
-        let invoice = await Invoice
-            .findOne({order: order_id})
-            .populate('order')
-            .populate('user');
-
-            return res.json(invoice);
-    } catch (err) {
+async function show(req, res, next){
+    try{
+      let policy = policyFor(req.user);
+      let invoice = await Invoice.findOne({order: req.params.order_id});
+      if(!policy.can('read', invoice)){
         return res.json({
-            error: 1,
-            message: "Error while retrieving invoice"
-        })
+          error: 1, 
+          message: `Anda tidak memiliki akses untuk melihat invoice ini.`
+        });
+      }
+      if(!invoice) return res.status(404).json({error: 1, message: 'Invoice not found'});
+        // const ability = policyFor(req.user, 'invoice', invoice);
+        // if(!ability.can('show', 'invoice')) return res.status(403).json({error: 1, message: 'You are not authorized to view this invoice'});
+      return res.json(invoice);
+    } catch(err) {
+  
+      return res.json({
+        error: 1, 
+        messageerror: err.message,
+        message: `Error when getting invoice.`
+      });
+  
     }
-}
+  }
 
 module.exports = {
     show

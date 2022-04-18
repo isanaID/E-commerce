@@ -29,6 +29,14 @@ const invoiceSchema = new Schema({
         enum: ['waiting_payment', 'paid', 'cancelled'],
         default: 'waiting_payment'
     },
+
+    order_number: {
+        type: Number
+    },
+
+    order_items : {
+        type: [Schema.Types.ObjectId]
+    },
     
     user: {
         type: Schema.Types.ObjectId,

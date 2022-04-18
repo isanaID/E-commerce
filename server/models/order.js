@@ -6,7 +6,7 @@ const Invoice = require('./invoice');
 const orderSchema = Schema({
     status: {
         type: String,
-        enum: ['waiting_payment', 'processing', 'shipped', 'delivered', 'cancelled'],
+        enum: ['waiting_payment', 'processing', 'in_delivery', 'delivered', 'cancelled'],
         default: 'waiting_payment'
     },
 
@@ -35,17 +35,22 @@ orderSchema.plugin(AutoIncrement, { inc_field: 'order_number' });
 orderSchema.virtual('item_count').get(function() {
     return this.order_items.reduce((total, item) => total + parseInt(item.qty), 0);
 });
-orderSchema.virtual('save', async function(){
-    let sub_total = this.order_item.reduce((total, item) => total += (item.price * item.qty), 0);
+orderSchema.post('save', async function() {
+    console.log(`${this}`)
+    await this.populate('order_items');
+    let sub_total = this.order_items.reduce((total, item) => total + (item.price * item.qty), 0);
     let invoice = new Invoice({
         user: this.user,
         order: this._id,
+        order_items: this.order_items,
+        order_number: this.order_number,
         sub_total: sub_total,
         delivery_fee: parseInt(this.delivery_fee),
         total: sub_total + parseInt(this.delivery_fee),
         delivery_address: this.delivery_address
     });
-    await invoice.save();
+    const savedInvoice = await invoice.save();
+    return savedInvoice;
 });
 
 module.exports = model('Order', orderSchema);
