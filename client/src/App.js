@@ -13,6 +13,7 @@ import UserAddress from './pages/UserAddress';
 import Checkout from './pages/Checkout';
 import Invoice from './pages/Invoice';
 import UserAccount from './pages/UserAccount';
+import UserOrders from './pages/UserOrders'; 
 import { listen } from './app/listener';
 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/invoice/:order_id" element={<Invoice />} />
           <Route path="/account" element={<UserAccount />} />
+          <Route path="/pesanan" element={<UserOrders />} />
         </Routes>
       </Router>
       </Provider>
