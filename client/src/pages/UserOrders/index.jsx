@@ -4,55 +4,11 @@ import { Link } from 'react-router-dom';
 
 import TopBar from '../../components/TopBar';
 import StatusLabel from '../../components/StatusLabel';
-import { formatRupiah } from '../../utils/format-rupiah';
-import { sumPrice } from '../../utils/sum-price';
+// import { formatRupiah } from '../../utils/format-rupiah';
+// import { sumPrice } from '../../utils/sum-price';
 import { FaFileInvoiceDollar } from '@meronex/icons/fa/FaFileInvoiceDollar';
 import { getOrders } from '../../api/order';
 
-const columns = [
-  { 
-    Header: '', 
-    id: 'Status',
-    accessor: order => {
-      return <div>
-        #{order.order_number} <br/>
-        <StatusLabel status={order.status}/>
-      </div>
-    }
-  },
-  {
-    Header: 'Items', 
-    accessor: order => {
-      return <div>
-        {order.order_items.map(item => {
-          return <div key={item._id}>
-            {item.name} {item.qty}
-          </div>
-        })}
-      </div>
-    }
-  }, 
-  {
-    Header: 'Total',
-    accessor: order => {
-      return <div>
-        {formatRupiah(sumPrice(order.order_items) + order.delivery_fee)}
-      </div>
-    }
-  },
-  {
-    Header: 'Invoice',
-    accessor: order => {
-      return <div>
-        <Link to={`/invoice/${order._id}`}>
-          <Button color="gray" iconBefore={<FaFileInvoiceDollar/>}>
-            Invoice
-          </Button>
-        </Link>
-      </div>
-    }
-  }
-];
 
 export default function UserOrders(){
    let [pesanan, setPesanan] = React.useState([]);
@@ -61,10 +17,10 @@ export default function UserOrders(){
    let [page, setPage] = React.useState(1);
    let [limit, ] = React.useState(10);
 
-  const fetchPesanan = React.useCallback( async () => {
+  let fetchPesanan = React.useCallback( async () => {
     setStatus('process');
 
-    let { data } = await getOrders({limit, page});
+    let { data } = await getOrders(page, limit);
 
     if(data.error){
       setStatus('error');
@@ -80,6 +36,8 @@ export default function UserOrders(){
   React.useEffect(() => {
     fetchPesanan();
   }, [fetchPesanan]);
+
+  console.log(pesanan);
   
 
    return (
@@ -87,15 +45,34 @@ export default function UserOrders(){
        <TopBar/>
        <Text as="h3"> Pesanan Anda </Text>
        <br />
-
-       <Table
-         items={pesanan}
-         totalItems={count}
-         columns={columns}
-         onPageChange={ page => setPage(page)}
-         page={page}
-         isLoading={status === 'process'}
-       />
+       <div>
+       <table className="table">
+       <thead>
+          <tr>
+            <th>Order Number</th>
+            <th>Status</th>
+            <th>invoice</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* {pesanan.map(order => {
+            return <tr key={order._id}>
+              <td>{order.order_number}</td>
+              <td>
+                <StatusLabel status={order.status}/>
+              </td>
+              <td>
+                <Link to={`/invoice/${order._id}`}>
+                  <Button color="gray" iconBefore={<FaFileInvoiceDollar/>}>
+                    Invoice
+                  </Button>
+                </Link>
+              </td>
+            </tr>
+          })} */}
+        </tbody>
+      </table>
+      </div>
 
      </LayoutOne>
    )
