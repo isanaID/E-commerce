@@ -1,12 +1,5 @@
 import * as React from 'react'; 
-import { 
-  LayoutOne, 
-  Text, 
-  Steps,
-  Table,
-  Button,
-  Responsive
-} from 'upkit';
+import { LayoutOne, Text, Steps, Table, Button, Responsive } from 'upkit';
 import { useSelector, useDispatch } from 'react-redux';
 import FaCartPlus from '@meronex/icons/fa/FaCartPlus';
 import FaAddressCard from '@meronex/icons/fa/FaAddressCard';
@@ -139,11 +132,11 @@ export default function Checkout(){
           <Table 
             items={cart}
             columns={columns}
+            color= "blue"
             perPage={cart.length}
             showPagination={false}
           />
 
-          {/* siap-siap untuk menampilkan informasi sub total dan tombol selanjutnya */}
           <br/>
           <div className="text-right">
            <Text as="h4">
@@ -153,7 +146,7 @@ export default function Checkout(){
            <br/>
            <Button 
              onClick={_ => setActiveStep(activeStep + 1)}
-             color="red"
+             color= "blue"
              iconAfter={<FaArrowRight/>}
            > Selanjutnya </Button>
           </div>
@@ -166,7 +159,8 @@ export default function Checkout(){
          <br/><br/>
          <Table
           items={data}
-          columns={addressColumns}
+          color= "blue"
+          columns={addressColumns}ssssssss
           perPage={limit}
           page={page}
           onPageChange={page => setPage(page)}
@@ -204,7 +198,7 @@ export default function Checkout(){
            <Button 
              onClick={_ => setActiveStep(activeStep + 1)} 
              disabled={!selectedAddress}
-             color="red" 
+             color= "blue"
              iconAfter={<FaArrowRight/>}>
               Selanjutnya
            </Button>
@@ -228,6 +222,7 @@ export default function Checkout(){
                accessor: 'value'
              }
            ]}
+           color= "blue"
            items={[
              {label: 'Alamat', value: <div>
               {selectedAddress.name} <br/> 
@@ -253,7 +248,7 @@ export default function Checkout(){
          <div className="text-right">
            <Button 
              onClick={handleCreateOrder}
-             color="red"
+             color= "blue"
              size="large"
              iconBefore={<FaRegCheckCircle/>}
            >
