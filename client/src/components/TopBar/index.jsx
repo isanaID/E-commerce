@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, NavDropdown} from 'react-bootstrap';
-import menus from './menus';
+// import menus from '../../pages/Home/menus';
 
 import StoreLogo from '../StoreLogo';
 
@@ -16,7 +16,7 @@ export default function TopBar() {
                 <Navbar.Brand href="/"><StoreLogo /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
+                    {/* <Nav className="mr-auto">
                         <NavDropdown title="Menu" id="basic-nav-dropdown">
                     {menus.map(menu => {
                         return(
@@ -24,7 +24,7 @@ export default function TopBar() {
                         )
                     })}
                 </NavDropdown>
-                    </Nav>
+                    </Nav> */}
                     <Nav>
                         <Nav.Link href="/login">Link</Nav.Link>
 
