@@ -17,7 +17,7 @@ export default function Cart({items, onItemInc, onItemDec, onCheckout}){
     <div>
         <div className="px-2 border-b mt-5 pb-5">
 
-        <div className="text-3xl flex items-center text-red-700">
+        <div className="text-3xl flex items-center text-blue-700">
         <FaCartPlus/>
         <div className="ml-2">
             Keranjang 
@@ -26,6 +26,7 @@ export default function Cart({items, onItemInc, onItemDec, onCheckout}){
         <Text as="h5">Total: {formatRupiah(total)}</Text>
     <Button
         text="Checkout" 
+        color= "blue"
         fitContainer 
         iconAfter={<FaArrowRight/>}
         disabled={!items.length}
@@ -41,7 +42,7 @@ export default function Cart({items, onItemInc, onItemDec, onCheckout}){
             imgUrl={`${config.api_host}/images/products/${item.image_url}`}
             name={item.name}
             qty={item.qty}
-            color="orange"
+            color="blue"
             onInc={_ => onItemInc(item)}
             onDec={_ => onItemDec(item)}
           />
