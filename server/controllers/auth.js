@@ -56,21 +56,24 @@ const login = async (req, res, next) => {
 };
 
 const logout = async (req, res, next) => {
-    let token = getToken(req);
-
-    let user = await User.findOneAndUpdate({token: {$in: [token]}}, {$pull: {token: token}}, {useFindAndModify: false});
-
-    if(!token || !user) {
-        res.json({
-            error: 1,
+    try {
+        let user = await User.findById(req.user._id);
+        if(!user) return res.json({
+            err: 1,
             message: 'User not found'
         });
+        let token = getToken(req);
+        if(!token) return res.json({
+            err: 1,
+            message: 'Token not found'
+        });
+        await User.findOneAndUpdate({token: {$in: [token]}}, {$pull: {token: token}}, {useFindAndModify: false});
+        return res.json({
+            message: 'Logout successful'
+        });
+    } catch (err) {
+        return next(err);
     }
-
-    return res.json({
-        error: 0,
-        message: 'Logout successful'
-    });
 }
 
 const me = (req, res, next) => {
