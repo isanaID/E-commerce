@@ -13,7 +13,8 @@ import UserAddress from './pages/UserAddress';
 import Checkout from './pages/Checkout';
 import Invoice from './pages/Invoice';
 import UserAccount from './pages/UserAccount';
-import UserOrders from './pages/UserOrders'; 
+import UserOrders from './pages/UserOrders';
+import Logout from './pages/Logout';
 import { listen } from './app/listener';
 
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/invoice/:order_id" element={<Invoice />} />
           <Route path="/account" element={<UserAccount />} />
           <Route path="/pesanan" element={<UserOrders />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>
       </Provider>
