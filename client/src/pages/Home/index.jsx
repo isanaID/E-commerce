@@ -103,7 +103,6 @@ export default function Home() {
                <div className="w-full md:w-1/4 h-full shadow-lg border-r border-white bg-gray-100">
                  <Cart 
                    items={cart}
-                   color= "blue"
                    onItemInc={item => dispatch(addItem(item))}
                    onItemDec={item => dispatch(removeItem(item))}
                    onCheckout={_ => navigate('/checkout')}

@@ -117,8 +117,10 @@ export default function Checkout(){
       return <Navigate to="/" />
    }
 
-   return <LayoutOne>
-      <TopBar/>
+   return (
+   <div>
+     <TopBar/>
+   <LayoutOne>
       <Text as="h3"> Checkout </Text> 
 
       <Steps
@@ -176,7 +178,8 @@ export default function Checkout(){
           <div className="text-center my-10">
             <Link to="/alamat-pengiriman/tambah">
               Kamu belum memiliki alamat pengiriman <br/> <br />
-              <Button> Tambah alamat </Button>
+              <Button
+              color='blue'> Tambah alamat </Button>
             </Link>
           </div>
         : null}
@@ -260,4 +263,6 @@ export default function Checkout(){
       : null}  
 
    </LayoutOne>
+   </div>
+   )
 }

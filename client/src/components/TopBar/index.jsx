@@ -1,7 +1,7 @@
 import * as React from 'react'; 
 import { useSelector } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 // import menus from '../../pages/Home/menus';
 
 import StoreLogo from '../StoreLogo';
@@ -25,14 +25,14 @@ export default function TopBar() {
                     })}
                 </NavDropdown>
                     </Nav> */}
-                    <Nav>
+                    {/* <Nav>
                         <Nav.Link href="/login">Link</Nav.Link>
-
-                    </Nav>
+                    </Nav> */}
                 </Navbar.Collapse>
                      <div className="mr-5 text-right">
 
                     <Nav.Link href={auth.user ? '/account' : '/login'}>
+                        {auth.user ? auth.user.name : 'Login'}
                     <div className="mr-2 inline-block text-blue-600 font-bold">
                         {auth?.user?.full_name}
                     </div>

@@ -40,20 +40,22 @@ export default function Invoice(){
       return <LayoutOne>
         <div className="text-center py-10">
           <div className="inline-block">
-            <BarLoader color="red"/>
+            <BarLoader color="blue"/>
           </div>
         </div>
       </LayoutOne>
     }
 
     return (
-      <LayoutOne>
+      <div>
         <TopBar/>
+      <LayoutOne>
         <Text as="h3"> Invoice </Text>
         <br/>
 
         <Table
           showPagination={false}
+          color="blue"
           items={[
             { label: 'Status', value: <StatusLabel status={invoice?.payment_status}/>}, 
             { label: 'Order ID', value: '#' + invoice?.order_number}, 
@@ -79,5 +81,6 @@ export default function Invoice(){
           ]}
         />
       </LayoutOne>
+      </div>
     )
 }

@@ -49,12 +49,14 @@ export default function Login(){
         let userSign = login(email, password);
         userSign.then(response => {
             let signData = response.data;
-            console.log(userSign);
-            console.log(signData);
             let {user, token} = signData;
             dispatch(userLogin(user, token));
-            console.log(user, token);
+            if(signData.message === 'Login successful'){
             navigate('/');
+            } else {
+            navigate('/login');
+            }
+
         })
         .catch(error => {
             setErrors(['Email atau Password salah']);
@@ -83,6 +85,9 @@ export default function Login(){
                             <div>
                                 <button type="submit" className='btn btn-primary'>Login</button></div>
                             </form>
+                            <div>
+                                <p className="text-center">Belum punya akun? <a href="/register">Daftar</a></p>
+                            </div>
                             </div>
                         </div>
                     </div>

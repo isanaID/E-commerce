@@ -73,7 +73,6 @@ export default class Register extends React.Component {
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-6">
                             <div class="card px-5 py-5" id="form1">
-                    <div className='welcome'>Registration</div>
                     <div className='subtitle'>Untuk mendapatkan akun, silakan mendaftar.</div>
                 <div className='input-fields'></div>
                 <ShowErrors errors={this.state.errors}/>

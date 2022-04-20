@@ -90,13 +90,14 @@ export default function useAddressData() {
             <div className="row d-flex justify-content-center">
                 <div className="col-md-6">
                     <div className="card px-5 py-5">
+                        <h3>Isi alamat pengiriman anda</h3>
                     <ShowErrors errors={errors}/>
                     <form onSubmit={handleSubmit}>
                     <div className="form-outline">
                     <Input type="text" name="name" label="Name" placeholder="Nama Alamat" className='form-control input-line mx-auto mb-4' onChange={handleNameChange}/>
                     </div>
                     <div className="form-outline">
-                    <Input type="text" name="address" label="Alamat Lengkap" placeholder="Alamat Lengkap" className='form-control input-line mx-auto mb-4' onChange={handleAddressChange}/>
+                    <textarea type="text" name="address" label="Alamat Lengkap" placeholder="Alamat Lengkap" className='form-control input-line mx-auto mb-4' onChange={handleAddressChange}/>
                     </div>
                     <div className="form-outline">
                     <Input type="text" name="kota" label="Nama Kota" placeholder="Nama Kota" className='form-control input-line mx-auto mb-4' onChange={handleKotaChange}/>

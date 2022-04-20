@@ -23,8 +23,9 @@ const menus = [
 
 export default function UserAccount(){
    return (
-     <LayoutOne>
+     <div>
        <TopBar/>
+     <LayoutOne>
        <Text as="h3">Akun Anda </Text>
        <br />
 
@@ -34,6 +35,7 @@ export default function UserAccount(){
              <Link to={menu.url}>
                <Card
                  header={menu.icon}
+                 color="blue"
                  body={<div className="text-center font-bold text-white">
                    {menu.label}
                  </div>}
@@ -44,5 +46,6 @@ export default function UserAccount(){
        </Responsive>
 
      </LayoutOne>
+     </div>
    )
 }

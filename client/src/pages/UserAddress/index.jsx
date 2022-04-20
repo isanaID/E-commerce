@@ -33,8 +33,10 @@ export default function UserAddress() {
                 <br />
 
                 <div>
-             <Link to="alamat-pengiriman/tambah">
-               <Button>
+             <Link to="/alamat-pengiriman/tambah">
+               <Button
+               color='blue'
+               >
                  Tambah baru
                </Button>
              </Link>
@@ -43,6 +45,7 @@ export default function UserAddress() {
              <Table 
                items={data}
                columns={columns}
+               color="blue"
                totalItems={count}
                page={page}
                perPage={limit}
@@ -54,7 +57,7 @@ export default function UserAddress() {
          {status === 'success' && !data.length ? <div className="text-center p-10">
            Kamu belum menambahkan alamat pengiriman. <br/>
            <Link to="/alamat-pengiriman/tambah">
-             <Button> Tambah Baru </Button>
+             <Button color='blue'> Tambah Baru </Button>
            </Link>
          </div> : null}
 
